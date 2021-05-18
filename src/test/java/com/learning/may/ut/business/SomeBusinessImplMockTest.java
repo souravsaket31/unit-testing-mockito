@@ -1,48 +1,45 @@
 package com.learning.may.ut.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.learning.may.ut.data.SomeDataService;
 
+@ExtendWith(MockitoExtension.class)
 class SomeBusinessImplMockTest {
+
+	@InjectMocks
+	SomeBusinessImpl sb;
+	
+	@Mock
+	SomeDataService dataServiceMock;
 
 	@Test
 	void calculateSumUsingDataServiceTest() {
-
-		SomeBusinessImpl sb = new SomeBusinessImpl();
-		SomeDataService dataServiceMock = mock(SomeDataService.class);
-
 		// dataServiceMock retrieveAllData new int[] { 1, 2, 3 }
-
 		when(dataServiceMock.retrieveAllData()).thenReturn(new int[] { 1, 2, 3 });
-		sb.setSomeDataService(dataServiceMock);
-		int actual = sb.calculateSumUsingDataService();
-		assertEquals(6, actual);
+		
+		assertEquals(6, sb.calculateSumUsingDataService());
 	}
 
 	@Test
 	void calculateSumForNegativeNumbers() {
-
-		SomeBusinessImpl sb = new SomeBusinessImpl();
-		SomeDataService dataServiceMock = mock(SomeDataService.class);
-		sb.setSomeDataService(dataServiceMock);
 		when(dataServiceMock.retrieveAllData()).thenReturn(new int[] { -1, -2, -3 });
-		int actual = sb.calculateSumUsingDataService();
-		assertEquals(-6, actual);
+		
+		assertEquals(-6, sb.calculateSumUsingDataService());
 	}
 
 	@Test
 	void calculateSumForEmptyArray() {
-		SomeBusinessImpl sb = new SomeBusinessImpl();
-		SomeDataService dataServiceMock = mock(SomeDataService.class);
-		sb.setSomeDataService(dataServiceMock);
 		when(dataServiceMock.retrieveAllData()).thenReturn(new int[] {});
-		int actual = sb.calculateSumUsingDataService();
-		assertEquals(0, actual);
+		
+		assertEquals(0, sb.calculateSumUsingDataService());
 	}
 
 }
