@@ -38,19 +38,19 @@ class ItemControllerTest {
 		
 		MvcResult result = mockMvc.perform(request)
 				.andExpect(status().isOk())
-				.andExpect(content().json("{\"id\":1,\"name\":\"Book\"}"))
+				.andExpect(content().json("{\"id\":1001,\"name\":\"Item-1\",\"desc\":\"Book\",\"price\":100,\"value\":0}"))
 				.andReturn();
 		
 		//JSONAssert.assertEquals(expected, actual, strict);
 		
-		//assertEquals("{\"id\":1,\"name\":\"Book\",\"desc\":\"Cracking the Coding Interview\"}", result.getResponse().getContentAsString());
+		//assertEquals("{\"id\":1001,\"name\":\"Item-1\",\"desc\":\"Book\",\"price\":100,\"value\":0}", result.getResponse().getContentAsString());
 	}
 	
 	@Test
 	void itemFromBusinessServiceTest() throws Exception {
 
 		when(businessServiceItem.retreiveHardCodedItem())
-		.thenReturn(new Item(1, "Book", "Cracking the Coding Interview"));
+		.thenReturn(new Item(1001, "Item-1", "Book", 100));
 		
 		// call "/dummy-item"
 		// verify -- content-String
@@ -60,7 +60,7 @@ class ItemControllerTest {
 		
 		MvcResult result = mockMvc.perform(request)
 				.andExpect(status().isOk())
-				.andExpect(content().json("{\"id\":1,\"name\":\"Book\",\"desc\":\"Cracking the Coding Interview\"}"))
+				.andExpect(content().json("{\"id\":1001,\"name\":\"Item-1\",\"desc\":\"Book\",\"price\":100,\"value\":0}"))
 				.andReturn();
 
 }
