@@ -1,6 +1,7 @@
 package com.learning.may.ut.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,12 @@ class ItemControllerTest {
 		// call "/hello-world"
 		// verify "Hello World!"
 		RequestBuilder request = MockMvcRequestBuilders.get("/dummy-item").accept(MediaType.APPLICATION_JSON);
-		MvcResult result = mockMvc.perform(request).andReturn();
-		assertEquals("{\"id\":1,\"name\":\"Book\",\"desc\":\"Cracking the Coding Interview\"}", result.getResponse().getContentAsString());
+		MvcResult result = mockMvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().string("{\"id\":1,\"name\":\"Book\",\"desc\":\"Cracking the Coding Interview\"}"))
+				.andReturn();
+		
+		//assertEquals("{\"id\":1,\"name\":\"Book\",\"desc\":\"Cracking the Coding Interview\"}", result.getResponse().getContentAsString());
 	}
 
 }
